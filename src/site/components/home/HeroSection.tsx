@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import dashboardAsset from "@/assets/current-dashboard/dental-dashboard.png.asset.json";
 import SpecialtyStage from "./SpecialtyStage";
+import heroOperatory from "@/assets/site/hero-operatory.jpg";
 
 const dashboardScreenshot = dashboardAsset.url;
 
@@ -21,9 +22,31 @@ const HeroSection = () => {
   // Parallax layers: background orbs drift slow, dashboard floats faster
   const dashboardY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -60]);
   const glassCardY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -130]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "18%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, reduceMotion ? 1.08 : 1.18]);
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-[hsl(var(--medical-blue-dark))] py-20 md:py-28">
+      {/* Background photo on the slowest parallax plane */}
+      <motion.div aria-hidden style={{ y: bgY, scale: bgScale }} className="pointer-events-none absolute inset-0 h-[70%] md:h-[80%]">
+        <img
+          src={heroOperatory}
+          alt=""
+          width={1920}
+          height={1088}
+          fetchPriority="high"
+          className="h-full w-full object-cover object-[70%_center]"
+        />
+      </motion.div>
+      {/* Dark overlay: readable left copy, fades into the section colour below */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, hsl(var(--medical-blue-dark) / 0.92) 0%, hsl(var(--medical-blue-dark) / 0.72) 55%, hsl(var(--medical-blue-dark) / 0.5) 100%), linear-gradient(180deg, transparent 0%, transparent 35%, hsl(var(--medical-blue-dark)) 72%)",
+        }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
