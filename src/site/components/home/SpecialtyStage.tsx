@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { SpecialtyKey } from "./specialtyScene";
 
-const SPECIALTIES: { key: SpecialtyKey; label: string; code: string; line: string; stats: [string, string][] }[] = [
+const SPECIALTIES: { key: SpecialtyKey; label: string; code: string; line: string; stats: [string, string][]; chips: string[] }[] = [
   {
     key: "dental",
     label: "Dental",
     code: "01",
     line: "Tooth-level charting, chair scheduling and treatment plans that follow each patient visit.",
     stats: [["32", "Teeth charted per visit"], ["Chair", "Based scheduling"]],
+    chips: ["Perio charting", "Lab cases", "Treatment plans"],
   },
   {
     key: "eye",
@@ -16,6 +17,7 @@ const SPECIALTIES: { key: SpecialtyKey; label: string; code: string; line: strin
     code: "02",
     line: "Refraction, prescriptions and optical orders recorded the way optometrists actually work.",
     stats: [["OD / OS", "Per-eye records"], ["Rx", "To optical order"]],
+    chips: ["Refraction", "Lens orders", "Eye charts"],
   },
   {
     key: "lab",
@@ -23,6 +25,7 @@ const SPECIALTIES: { key: SpecialtyKey; label: string; code: string; line: strin
     code: "03",
     line: "Samples, test templates and results tracked from collection to the patient's result page.",
     stats: [["Sample", "To result tracking"], ["Online", "Result checks"]],
+    chips: ["Test templates", "Sample tracking", "Result pages"],
   },
   {
     key: "general",
@@ -30,6 +33,7 @@ const SPECIALTIES: { key: SpecialtyKey; label: string; code: string; line: strin
     code: "04",
     line: "Consultations, vitals, prescriptions and billing for a clinic that sees a bit of everything.",
     stats: [["Vitals", "On every visit"], ["One", "Patient timeline"]],
+    chips: ["Vitals", "Prescriptions", "Billing"],
   },
 ];
 
