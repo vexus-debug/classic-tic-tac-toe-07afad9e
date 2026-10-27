@@ -1,27 +1,29 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-const steps = [
+const acts = [
   {
-    number: "01",
-    title: "Choose your specialty",
-    description: "Start with the system built for your field, with its clinical tools already in place, not a blank template to configure.",
-    outcome: "Services · Staff · Patient records",
+    time: "07:45",
+    title: "Before anyone takes a seat",
+    line: "The front desk opens to today's list already confirmed, reminders already sent and the waiting room queue updating itself as patients walk in.",
+    outcome: "Fewer empty chairs. Chasing patients is automatic, not a morning phone ritual.",
   },
   {
-    number: "02",
-    title: "Bring in your team and records",
-    description: "Add your practitioners, services and existing patient records into a system that already speaks your specialty.",
-    outcome: "Schedules · Access · Billing",
+    time: "10:20",
+    title: "In the chair",
+    line: "The dentist opens the tooth chart, records findings at the chairside and adds them to the treatment plan with the catalog price already attached. Consent is signed in the room, on screen.",
+    outcome: "No memo pads, no guessing prices, no second visit just to finish the notes.",
   },
   {
-    number: "03",
-    title: "Practise without workarounds",
-    description: "Charting, orders, lab work and billing follow the real workflow of your discipline, with no manual notes or spreadsheets.",
-    outcome: "Appointments · Invoices · Activity",
+    time: "16:40",
+    title: "After the last patient leaves",
+    line: "Finishing the visit closes the loop: billables reviewed, the prescription attached, the invoice lands in billing and the crown case is dispatched to the lab with a due date everyone can see.",
+    outcome: "The day's work becomes the day's revenue, with nothing left in a drawer.",
   },
 ];
 
 const HowItWorksSection = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="site-section-tint py-20 md:py-28">
       <div className="container">
@@ -33,35 +35,36 @@ const HowItWorksSection = () => {
             transition={{ duration: 0.45 }}
             className="lg:col-span-4"
           >
-            <span className="site-eyebrow block text-primary">Find your system</span>
-            <h2 className="mt-4 max-w-sm text-3xl text-foreground md:text-4xl">
-              Find the System Built for Your Practice.
+            <h2 className="max-w-sm text-3xl text-foreground md:text-4xl">
+              One day in your practice, without the workarounds.
             </h2>
             <p className="mt-5 max-w-sm leading-relaxed text-muted-foreground">
-              Choose the dedicated system for your field: Dental, Eye Care, Fertility, Diagnostics or General Practice.
+              This is a single Tuesday in a Clinexus dental practice. The eye care, laboratory and general practice systems run the same way: on their own clinical rails.
             </p>
           </motion.header>
 
-          <ol className="border-t border-border/30 lg:col-span-8">
-            {steps.map((step, index) => (
+          <ol className="relative lg:col-span-8">
+            {acts.map((act, index) => (
               <motion.li
-                key={step.number}
-                initial={{ opacity: 0, y: 12 }}
+                key={act.time}
+                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="grid gap-4 border-b border-border/30 py-8 sm:grid-cols-[3rem_1fr] md:grid-cols-[3rem_1fr_12rem] md:gap-6 md:py-10"
+                transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.08 }}
+                className="relative grid grid-cols-[4.5rem_1fr] gap-4 border-b border-border/30 py-8 md:grid-cols-[7rem_1fr] md:gap-8 md:py-10 last:border-b-0"
               >
-                <span className="font-mono text-xs tabular-nums text-primary">{step.number}</span>
-                <div>
-                  <h3 className="text-xl text-foreground md:text-2xl">{step.title}</h3>
+                <div className="pt-1">
+                  <span className="font-mono text-sm tabular-nums text-primary md:text-base">{act.time}</span>
+                </div>
+                <div className="border-l border-border/40 pl-6 md:pl-8">
+                  <h3 className="text-xl text-foreground md:text-2xl">{act.title}</h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {step.description}
+                    {act.line}
+                  </p>
+                  <p className="mt-4 max-w-xl text-sm font-medium text-foreground/80">
+                    {act.outcome}
                   </p>
                 </div>
-                <p className="self-start text-xs leading-relaxed text-muted-foreground md:text-right">
-                  {step.outcome}
-                </p>
               </motion.li>
             ))}
           </ol>
