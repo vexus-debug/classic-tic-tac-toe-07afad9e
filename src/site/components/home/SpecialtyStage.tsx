@@ -152,6 +152,17 @@ const SpecialtyStage = () => {
         </div>
 
         <div className="relative mt-4 min-h-[8rem] lg:mt-6 lg:min-h-[9rem]">
+          {!reduceMotion && !paused && (
+            <div className="mb-4 h-px w-full max-w-md overflow-hidden bg-white/10" aria-hidden>
+              <motion.div
+                key={current.key}
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 5.2, ease: "linear" }}
+                className="h-full bg-[hsl(var(--medical-teal))]"
+              />
+            </div>
+          )}
           <AnimatePresence mode="wait">
             <motion.div
               key={current.key}
@@ -169,6 +180,16 @@ const SpecialtyStage = () => {
                   </div>
                 ))}
               </dl>
+              <ul className="mt-5 flex flex-wrap gap-2" aria-label="Included clinical tools">
+                {current.chips.map((chip) => (
+                  <li
+                    key={chip}
+                    className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-medium text-white/70"
+                  >
+                    {chip}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </AnimatePresence>
         </div>
